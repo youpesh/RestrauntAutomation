@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.restrauntautomation.HelloController"
+            prefHeight="700.0" prefWidth="1000.0">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+
+    <center>
+        <!-- ScrollPane allows viewing tables if they exceed the visible area -->
+        <ScrollPane fitToWidth="true" fitToHeight="true" BorderPane.alignment="CENTER">
+            <content>
+                <!-- TilePane is good for a grid of similar items like tables -->
+                <TilePane fx:id="tableGridPane" hgap="15" vgap="15" prefColumns="6" alignment="TOP_LEFT">
+                    <padding>
+                        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+                    </padding>
+                    <!-- Table representations (e.g., Buttons) will be added dynamically here by the controller -->
+                </TilePane>
+            </content>
+            <BorderPane.margin>
+                <Insets right="10.0"/>
+            </BorderPane.margin>
+        </ScrollPane>
+    </center>
+
+    <right>
+        <!-- VBox for organizing the right-side panel controls -->
+        <VBox spacing="10.0" prefWidth="380.0" BorderPane.alignment="CENTER" style="-fx-border-color: lightgrey; -fx-border-width: 1; -fx-padding: 10;">
+            <children>
+                <Label text="Restaurant Dashboard" style="-fx-font-size: 18px; -fx-font-weight: bold;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                </Label>
+                <Separator/>
+
+                <!-- Section for selecting table and wait staff -->
+                <GridPane hgap="10" vgap="5">
+                  <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="100.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                  </rowConstraints>
+                   <children>
+                      <Label text="Selected Table:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                      <Label fx:id="selectedTableLabel" text="None" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                      <Label text="Wait Staff:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                      <ComboBox fx:id="waitStaffComboBox" promptText="Select Staff" prefWidth="200.0" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                   </children>
+                   <VBox.margin>
+                      <Insets bottom="5.0"/>
+                   </VBox.margin>
+                </GridPane>
+                <Separator/>
+
+                <!-- Menu Section using Accordion -->
+                <Label text="Menu Categories" style="-fx-font-weight: bold;"/>
+                <Accordion fx:id="menuAccordion"/>
+                <Separator/>
+
+                <!-- Current Order Section -->
+                <Label text="Current Order" style="-fx-font-weight: bold;"/>
+                <ListView fx:id="currentOrderListView" prefHeight="200.0"/>
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                     <Label text="Total:" style="-fx-font-weight: bold;"/>
+                     <Label fx:id="orderTotalLabel" text="\$0.00" style="-fx-font-weight: bold;"/>
+                </HBox>
+                 <HBox spacing="10" alignment="CENTER">
+                    <!-- Add/Remove Item buttons might be better placed near menu items or order list -->
+                    <Button fx:id="submitOrderButton" text="Submit Order" onAction="#handleSubmitOrderAction" disable="true"/>
+                    <Button fx:id="clearOrderButton" text="Clear Current Order" onAction="#handleClearOrderAction"/>
+                 </HBox>
+                 <Separator/>
+
+                 <!-- Order Queue Section -->
+                 <Label text="Pending Order Queue" style="-fx-font-weight: bold;"/>
+                 <ListView fx:id="orderQueueListView" prefHeight="250.0"/>
+                 <Button fx:id="completeOrderButton" text="Complete Selected Order" onAction="#handleCompleteOrderAction" maxWidth="Infinity" disable="true">
+                     <VBox.margin>
+                         <Insets top="5.0"/>
+                     </VBox.margin>
+                 </Button>
+
+            </children>
+        </VBox>
+    </right>
+
+</BorderPane>
